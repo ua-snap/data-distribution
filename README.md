@@ -7,12 +7,10 @@
  1. `source /usr/lib/ckan/default/bin/activate`
  1. Clone the [ckanext-snap_harvester](https://github.com/ua-snap/ckanext-snap_harvester) repository to `/usr/lib/ckan/default/src`.
  1. `cd /usr/lib/ckan/default/src/ckanext-snap_harvester`
- 1. `python setup.py build`
- 1. `python setup.py install`
+ 1. `python setup.py develop`
  1. Clone the [ckanext-snap_theme](https://github.com/ua-snap/ckanext-snap_theme) repository to `/usr/lib/ckan/default/src`.
  1. `cd /usr/lib/ckan/default/src/ckanext-snap_theme`
- 1. `python setup.py build`
- 1. `python setup.py install`
+ 1. `python setup.py develop`
  1. Edit the main CKAN configuration file in `/etc/ckan/default/production.ini` and add the `snap_harvester` and `snap_theme` to the line where additional plugins are configured.
 
 ### Running CKAN in a development mode
