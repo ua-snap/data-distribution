@@ -16,5 +16,34 @@ Instead of serving CKAN through Apache's `mod_wsgi`, it's better to run with the
  - disable supervisord
  - add "debug=True" to config file
 
+To launch the development server:
+
+ * `source /usr/lib/ckan/default/bin/activate`
+ * `paster serve /etc/ckan/default/production.ini`
+
+### Running the harvester
+
+Before you can create a harvester instance, you need to have at least one organization defined.  Go to the Organizations menu at the top of the screen and create one named 'snap'.
+
+Go to `localhost:5000/harvest` and configure a new harvest job:
+
+ * URL: https://athena.snap.uaf.edu/geonetwork/srv/en/csw?request=GetCapabilities&service=CSW
+ * Source Type: SNAP GeoNetwork Instance
+
+Other options can be left as default.
+
+Next, modify the default cronjob to run once per minute so you don't have to wait too long for the harvesting to kick off.
+
+ * `crontab -u ckan -e`
+ * Change the last line to: `/1 * * * * /usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester run --config=/etc/ckan/default/production.ini`
+
+To launch the harvesters for development, open a new terminal window and `vagrant ssh` into the instance.  Then:
+
+ * `sudo su -`
+ * `source /usr/lib/ckan/default/bin/activate`
+ * `/usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester     gather_consumer --config=/etc/ckan/default/production.ini &`
+ * /usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester     fetch_consumer --config=/etc/ckan/default/production.ini`
+
+When you make changes to the harvester plugin, you'll need to restart the fetch stage.  Ensuring that `supervisord` isn't running is important, or you'll end up with an in-memory version of the harvester instead of the one you're working on.
 
 
