@@ -4,9 +4,16 @@
 
  1. Run the Vagrant provisioner located [here](https://github.com/ua-snap/ckan-puppet-centos) to build the base image.
  1. `vagrant ssh` to log into the machine.  For convenience while development, I'll assume all further commands are run as root.
+ 1. `source /usr/lib/ckan/default/bin/activate`
  1. Clone the [ckanext-snap_harvester](https://github.com/ua-snap/ckanext-snap_harvester) repository to `/usr/lib/ckan/default/src`.
+ 1. `cd /usr/lib/ckan/default/src/ckanext-snap_harvester`
+ 1. `python setup.py build`
+ 1. `python setup.py install`
  1. Clone the [ckanext-snap_theme](https://github.com/ua-snap/ckanext-snap_theme) repository to `/usr/lib/ckan/default/src`.
- 1. Edit the main CKAN configuration file in `/etc/ckan/default/production.ini` and add the `snap_harvester` and `snap_plugins` to the line where additional plugins are configured.
+ 1. `cd /usr/lib/ckan/default/src/ckanext-snap_theme`
+ 1. `python setup.py build`
+ 1. `python setup.py install`
+ 1. Edit the main CKAN configuration file in `/etc/ckan/default/production.ini` and add the `snap_harvester` and `snap_theme` to the line where additional plugins are configured.
 
 ### Running CKAN in a development mode
 
