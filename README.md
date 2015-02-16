@@ -23,6 +23,11 @@ Instead of serving CKAN through Apache's `mod_wsgi`, it's better to run with the
  - disable supervisord
  - add "debug=True" to config file
 
+In order to use the additional debug interface tools, you need to copy a CSS file or CKAN will choke.
+
+ * `cp /usr/lib/ckan/default/src/ckan/ckan/public/base/css/main.css`
+ * `/usr/lib/ckan/default/src/ckan/ckan/public/base/css/main.debug.css`
+
 To launch the development server:
 
  * `source /usr/lib/ckan/default/bin/activate`
