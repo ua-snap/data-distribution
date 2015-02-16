@@ -53,4 +53,11 @@ To launch the harvesters for development, open a new terminal window and `vagran
 
 When you make changes to the harvester plugin, you'll need to restart the fetch stage.  Ensuring that `supervisord` isn't running is important, or you'll end up with an in-memory version of the harvester instead of the one you're working on.
 
+To actually perform harvesting/reharvesting, do this:
+
+ * Go to `http://localhost:5000/harvest`
+ * Pick the SNAP Harvester
+ * Click "Admin"
+ * Click "Clear" then "Reharvest".  This is the best way to ensure that stale/old jobs aren't getting resumed.
+
 
