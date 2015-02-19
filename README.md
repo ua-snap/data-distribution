@@ -12,6 +12,14 @@
  1. `cd /usr/lib/ckan/default/src/ckanext-snap_theme`
  1. `python setup.py develop`
  1. Edit the main CKAN configuration file in `/etc/ckan/default/production.ini` and add the `snap_harvester` and `snap_theme` to the line where additional plugins are configured.
+ 
+Then, create an administrative user:
+
+```bash
+. /usr/lib/ckan/default/bin/activate
+cd /usr/lib/ckan/default/src/ckan
+paster sysadmin add admin -c /etc/ckan/default/production.ini
+```
 
 ### Running CKAN in a development mode
 
@@ -33,9 +41,9 @@ To launch the development server:
 
 ### Running the harvester
 
-Before you can create a harvester instance, you need to have at least one organization defined.  Go to the Organizations menu at the top of the screen and create one named 'snap'.
+Before you can create a harvester instance, you need to have at least one organization defined.  Log into CKAN's web interface with the admin user you created earlier, then go to the Organizations menu at the top of the screen and create one named 'snap'.
 
-Go to `localhost:5000/harvest` and configure a new harvest job:
+As a logged in admin user, go to `localhost:5000/harvest` and configure a new harvest job:
 
  * URL: https://athena.snap.uaf.edu/geonetwork/srv/en/csw?request=GetCapabilities&service=CSW
  * Source Type: SNAP GeoNetwork Instance
