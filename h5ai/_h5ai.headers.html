@@ -1,0 +1,40 @@
+<script>
+/*
+var urlPath = document.location;
+var str2 = "http://ckan.snap.uaf.edu/api/3/action/resource_search?query=url:" + decodeURI(urlPath);
+$('#dataset-summary').html("<a href='" + str2 + "'>" + str2 +  "</a><br/>");
+$.get(str2, function(datasetSearchResults) {
+	if (1 === datasetSearchResults.result.count) {
+		console.log(datasetSearchResults.result.results[0].url);
+		console.log(datasetSearchResults.result.results[0].resource_group_id);
+		$.get('http://ckan.snap.uaf.edu/api/rest/dataset/' + datasetSearchResults.result.results[0], function(dataset) {
+			alert("Z");
+			$('#dataset-title').text(dataset.title);
+			$('#dataset-url').attr('href', 'http://ckan.snap.uaf.edu/dataset/' + dataset.id);
+		});
+	}
+});
+*/
+/*
+$.get('http://ckan.snap.uaf.edu/api/search/dataset?download-url=data/IEM/ancillary/elevation/', function(datasetSearchResults) {
+        if (1 === datasetSearchResults.count) {
+                $.get('http://ckan.snap.uaf.edu/api/rest/dataset/' + datasetSearchResults.results[0], function(dataset) {
+                        console.log(dataset);
+                        $('#dataset-title').text(dataset.title);
+                        $('#dataset-summary').html(dataset.notes_rendered);
+                        $('#dataset-url').attr('href', 'http://ckan.snap.uaf.edu/dataset/' + dataset.id);
+                });
+        }
+});*/
+
+</script>
+<!--<div>
+<h1 id="dataset-title"></h1>
+<section id="dataset-summary"></section>
+<ul>
+<li>See <a href="" id="dataset-url">additional metadata</a> for these data products.</li>
+-->
+
+<p>To see additional datasets, please explore the <a href="https://www.snap.uaf.edu/tools/data-downloads">SNAP Data Downloads.</a></li>
+</p>
+
