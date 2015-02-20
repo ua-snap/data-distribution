@@ -4,9 +4,22 @@
 
  1. Run the Vagrant provisioner located [here](https://github.com/ua-snap/ckan-puppet-centos) to build the base image.
  1. `vagrant ssh` to log into the machine.  For convenience while development, I'll assume all further commands are run as root.
+ 1. `source /usr/lib/ckan/default/bin/activate`
  1. Clone the [ckanext-snap_harvester](https://github.com/ua-snap/ckanext-snap_harvester) repository to `/usr/lib/ckan/default/src`.
+ 1. `cd /usr/lib/ckan/default/src/ckanext-snap_harvester`
+ 1. `python setup.py develop`
  1. Clone the [ckanext-snap_theme](https://github.com/ua-snap/ckanext-snap_theme) repository to `/usr/lib/ckan/default/src`.
- 1. Edit the main CKAN configuration file in `/etc/ckan/default/production.ini` and add the `snap_harvester` and `snap_plugins` to the line where additional plugins are configured.
+ 1. `cd /usr/lib/ckan/default/src/ckanext-snap_theme`
+ 1. `python setup.py develop`
+ 1. Edit the main CKAN configuration file in `/etc/ckan/default/production.ini` and add the `snap_harvester` and `snap_theme` to the line where additional plugins are configured.
+ 
+Then, create an administrative user:
+
+```bash
+. /usr/lib/ckan/default/bin/activate
+cd /usr/lib/ckan/default/src/ckan
+paster sysadmin add admin -c /etc/ckan/default/production.ini
+```
 
 ### Running CKAN in a development mode
 
@@ -16,6 +29,11 @@ Instead of serving CKAN through Apache's `mod_wsgi`, it's better to run with the
  - disable supervisord
  - add "debug=True" to config file
 
+In order to use the additional debug interface tools, you need to copy a CSS file or CKAN will choke.
+
+ * `cp /usr/lib/ckan/default/src/ckan/ckan/public/base/css/main.css`
+ * `/usr/lib/ckan/default/src/ckan/ckan/public/base/css/main.debug.css`
+
 To launch the development server:
 
  * `source /usr/lib/ckan/default/bin/activate`
@@ -23,9 +41,9 @@ To launch the development server:
 
 ### Running the harvester
 
-Before you can create a harvester instance, you need to have at least one organization defined.  Go to the Organizations menu at the top of the screen and create one named 'snap'.
+Before you can create a harvester instance, you need to have at least one organization defined.  Log into CKAN's web interface with the admin user you created earlier, then go to the Organizations menu at the top of the screen and create one named 'snap'.
 
-Go to `localhost:5000/harvest` and configure a new harvest job:
+As a logged in admin user, go to `localhost:5000/harvest` and configure a new harvest job:
 
  * URL: https://athena.snap.uaf.edu/geonetwork/srv/en/csw?request=GetCapabilities&service=CSW
  * Source Type: SNAP GeoNetwork Instance
@@ -42,8 +60,15 @@ To launch the harvesters for development, open a new terminal window and `vagran
  * `sudo su -`
  * `source /usr/lib/ckan/default/bin/activate`
  * `/usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester     gather_consumer --config=/etc/ckan/default/production.ini &`
- * /usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester     fetch_consumer --config=/etc/ckan/default/production.ini`
+ * `/usr/lib/ckan/default/bin/paster --plugin=ckanext-harvest harvester     fetch_consumer --config=/etc/ckan/default/production.ini`
 
 When you make changes to the harvester plugin, you'll need to restart the fetch stage.  Ensuring that `supervisord` isn't running is important, or you'll end up with an in-memory version of the harvester instead of the one you're working on.
+
+To actually perform harvesting/reharvesting, do this:
+
+ * Go to `http://localhost:5000/harvest`
+ * Pick the SNAP Harvester
+ * Click "Admin"
+ * Click "Clear" then "Reharvest".  This is the best way to ensure that stale/old jobs aren't getting resumed.
 
 
