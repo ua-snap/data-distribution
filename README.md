@@ -89,3 +89,6 @@ Set the license file in the CKAN configuration file.  Edit `/etc/ckan/default/pr
 licenses_group_url = file:///usr/lib/ckan/default/src/ckanext-snap_harvester/ckanext/snap_harvester/licenses.json
 ```
 
+# Configuration of data download directories
+
+Placeholder *TODO* for the moment.  Need to add instructions on adding `h5ai` and how to configure it and edit template as required.
