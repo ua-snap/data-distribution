@@ -41,7 +41,11 @@ To launch the development server:
 
 ### Running the harvester
 
-Before you can create a harvester instance, you need to have at least one organization defined.  Log into CKAN's web interface with the admin user you created earlier, then go to the Organizations menu at the top of the screen and create one named 'snap'.
+#### Create an organization
+
+Before you can create a harvester instance, you need to have at least one organization defined.  Log into CKAN's web interface with the admin user you created earlier, then navigate to organizations by entering the URL `https://site.url/organization` and create one named 'snap'.
+
+#### Configure the harvester
 
 As a logged in admin user, go to `localhost:5000/harvest` and configure a new harvest job:
 
