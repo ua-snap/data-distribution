@@ -71,4 +71,21 @@ To actually perform harvesting/reharvesting, do this:
  * Click "Admin"
  * Click "Clear" then "Reharvest".  This is the best way to ensure that stale/old jobs aren't getting resumed.
 
+## Post-install configuration on production server
+
+After completing the install of the base CKAN and our extensions, there's some additional steps that need to be performed.
+
+### Configuration in the admin menu
+
+Log in as an administrator, go to the admin tools and choose the "Congfig" tab.  Set this section up this way:
+
+ * Site Tag Logo: `snap_data_art.png`
+
+### Manual changes on the filesystem
+
+Set the license file in the CKAN configuration file.  Edit `/etc/ckan/default/production.ini` and replace the existing `licenses_group_url` line in the `[app:main]` section to be this:
+
+```
+licenses_group_url = file:///usr/lib/ckan/default/src/ckanext-snap_harvester/ckanext/snap_harvester/licenses.json
+```
 
