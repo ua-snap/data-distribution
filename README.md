@@ -74,29 +74,35 @@ Restart the Postgresql service to clear all active connections
 
 Drop ckan_default, datastore_default and postgres databases as postgres user
 ```
-$ /usr/pgsql-9.3/bin/dropdb ckan_default
-$ /usr/pgsql-9.3/bin/dropdb datastore_default
-$ /usr/pgsql-9.3/bin/dropdb postgres 
+postgres $ /usr/pgsql-9.3/bin/dropdb ckan_default
+postgres $ /usr/pgsql-9.3/bin/dropdb datastore_default
+postgres $ /usr/pgsql-9.3/bin/dropdb postgres 
 ```
 
 Recreate the databases to allow for restoring from a text file
 ```
-$ /usr/pgsql-9.3/bin/createdb postgres
-$ /usr/pgsql-9.3/bin/createdb ckan_default
-$ /usr/pgsql-9.3/bin/createdb datastore_default
+postgres $ /usr/pgsql-9.3/bin/createdb postgres
+postgres $ /usr/pgsql-9.3/bin/createdb ckan_default
+postgres $ /usr/pgsql-9.3/bin/createdb datastore_default
+```
+
+Restore from the database dump
+
+```
+postgres $ /usr/pgsql-9.3/bin/psql < database-dump.sql
 ```
 
 You must reindex to have things show up properly through Solr on the Web UI
 ```
 $ sudo su - ckan
-$ source default/bin/activate
-$(default) paster --plugin=ckan search-index rebuild -c /etc/ckan/default/production.ini
+ckan $ source default/bin/activate
+(default) ckan $ paster --plugin=ckan search-index rebuild -c /etc/ckan/default/production.ini
 ```
 
 Now you can start the CKAN instance again
 ```
 $ sudo su - ckan
-$ source default/bin/activate
-$(default) paster serve /etc/ckan/default/production.ini
+ckan $ source default/bin/activate
+(default) ckan $ paster serve /etc/ckan/default/production.ini
 ```
 
