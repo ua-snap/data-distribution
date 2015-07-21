@@ -11,6 +11,15 @@ cd /usr/lib/ckan/default/src/ckan
 paster sysadmin add admin -c /etc/ckan/default/production.ini
 ```
 
+### Wiring up git repos
+
+If you want to set up shared folders with your VM/host for development, follow these (rough) steps:
+
+ 1. On your local machine, navigate to the directory where you cloned the `ckan-puppet-centos` repo, then `vagrant up && vagrant ssh`, then (on the VM) from `/usr/lib/ckan/default/`, remove the `ckanext-snap_theme` and `ckanext-snap_harvester` directories.
+ 1. Log out of the VM, then `git clone` both repositories into *this* directory (same place as the Vagrantfile).
+ 1. Uncomment the [relevant sections](https://github.com/ua-snap/ckan-puppet-centos/blob/master/Vagrantfile#L19) of the Vagrantfile, then `vagrant reload`.
+ 1. `vagrant ssh` back into the VM, then navigate to each repository and run `python setup.py develop` to "install" the module.
+
 ### Running CKAN in a development mode
 
 Instead of serving CKAN through Apache's `mod_wsgi`, it's better to run with the development server because it allows enhanced debug modes to be activated.
